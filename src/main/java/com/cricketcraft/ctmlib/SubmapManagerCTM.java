@@ -49,7 +49,7 @@ public class SubmapManagerCTM implements ISubmapManager {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public RenderBlocks createRenderContext(RenderBlocks rendererOld, Block block, IBlockAccess world) {
+	public RenderBlocks createRenderContext(RenderBlocks rendererOld, Block block, IBlockAccess world, int meta) {
 		if (rb == null) {
 			rb = new RenderBlocksCTM();
 		}
