@@ -63,8 +63,8 @@ public class RenderBlocksCTM extends RenderBlocks {
 
 		void render(RenderBlocksCTM inst, ForgeDirection normal, int cacheID) {
 			if (inst.enableAO) {
-				inst.tessellator.setColorOpaque_F(inst.redCache[cacheID], inst.grnCache[cacheID], inst.bluCache[cacheID]);
-				inst.tessellator.setBrightness(inst.lightingCache[cacheID]);
+				Tessellator.instance.setColorOpaque_F(inst.redCache[cacheID], inst.grnCache[cacheID], inst.bluCache[cacheID]);
+				Tessellator.instance.setBrightness(inst.lightingCache[cacheID]);
 			}
 
 			u = cacheID == 1 || cacheID == 2 ? inst.maxU : inst.minU;
@@ -98,7 +98,7 @@ public class RenderBlocksCTM extends RenderBlocks {
 				xDiff = yDiff = zDiff = 1;
 			}
 
-			inst.tessellator.addVertexWithUV(inst.renderMinX + (x * xDiff), inst.renderMinY + (y * yDiff), inst.renderMinZ + (z * zDiff), u, v);
+			Tessellator.instance.addVertexWithUV(inst.renderMinX + (x * xDiff), inst.renderMinY + (y * yDiff), inst.renderMinZ + (z * zDiff), u, v);
 		}
 	}
 
@@ -166,7 +166,6 @@ public class RenderBlocksCTM extends RenderBlocks {
 		renderMaxX = renderMaxY = renderMaxZ = 1;
 	}
 
-	protected Tessellator tessellator = Tessellator.instance;
 	protected double minU, maxU;
 	protected double minV, maxV;
 	protected int[] lightingCache = new int[4];
@@ -195,15 +194,15 @@ public class RenderBlocksCTM extends RenderBlocks {
 		bz = z;
 		meta = Minecraft.getMinecraft().theWorld.getBlockMetadata(x, y, z);
 
-		tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
-		tessellator.addTranslation(x, y, z);
+		Tessellator.instance.setColorOpaque_F(1.0F, 1.0F, 1.0F);
+		Tessellator.instance.addTranslation(x, y, z);
 		if (rendererOld != null && rendererOld.hasOverrideBlockTexture()) {
 			setOverrideBlockTexture(rendererOld.overrideBlockTexture);
 		}
 		inWorld = true;
 		boolean res = super.renderStandardBlock(block, x, y, z);
 		inWorld = false;
-		tessellator.addTranslation(-x, -y, -z);
+		Tessellator.instance.addTranslation(-x, -y, -z);
 
 		return res;
 	}
